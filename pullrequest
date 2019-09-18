@@ -1,0 +1,8 @@
+
+url=$(git push 2>&1 | grep "/pull-requests/new?")
+url=${url#"remote:"}
+
+echo $url
+if [[ $url = *[!\ ]* ]]; then
+    open $url
+fi

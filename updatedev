@@ -1,0 +1,13 @@
+branch=$(git branch --show-current)
+
+stashMsg=$(git stash)
+
+git checkout develop &&
+git pull &&
+git checkout $branch
+
+if [ "$stashMsg" != 'No local changes to save' ]
+then 
+    git stash pop
+fi
+
