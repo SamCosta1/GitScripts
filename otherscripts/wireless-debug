@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -e -E -o pipefail
+
+IP=$(adb shell ip route | awk '{print $9}' | tail -1)
+adb tcpip 5555
+
+echo "Unplug USB now 3"
+sleep 1s
+echo "Unplug USB now 2"
+sleep 1s
+echo "Unplug USB now 1"
+
+adb connect $(echo "$IP:5555")

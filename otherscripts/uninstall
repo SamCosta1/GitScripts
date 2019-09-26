@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -e -E -o pipefail
+
+path=$(find ./app/build/generated/source/buildConfig -name "BuildConfig.java" | head -1);
+
+if [[ $path = *[!\ ]* ]]; then
+    package=$(cat $path | grep "APPLICATION_ID" | cut -d'"' -f2)
+    echo "Uninstalling $package";
+    adb uninstall $package;
+else
+    echo "Sorry couldn't find build config"
+fi

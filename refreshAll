@@ -4,4 +4,5 @@ git config --global alias.pr "!$current/pullrequest"
 git config --global alias.updatedev "!$current/updatedev"
 git config --global alias.mergedev "!$current/mergedev"
 git config --global alias.b "checkout -b"
+git config --global alias.c "checkout"
 
