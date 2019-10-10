@@ -1,0 +1,9 @@
+#!/bin/bash
+
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+if [[ $BRANCH =~ ^feature/ ]]; then
+    if git push; then
+        osascript -e 'display notification "Successfully pushed to $BRANCH" with title "I did-ed it"'
+    fi
+fi
