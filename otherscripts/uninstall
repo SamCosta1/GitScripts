@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e -E -o pipefail
 
-path=$(find ./app -name "BuildConfig.java" | head -1);
+path=$(find ./app -name "BuildConfig.java" ! -path '*test*' ! -path '*androidTest*' | head -1);
 
 if [[ $path = *[!\ ]* ]]; then
     package=$(cat $path | grep "APPLICATION_ID" | cut -d'"' -f2)

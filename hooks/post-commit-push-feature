@@ -1,9 +1,18 @@
 #!/bin/bash
 
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
-
+echo $BRANCH
 if [[ $BRANCH =~ ^feature/ ]]; then
-    if git push; then
-        osascript -e 'display notification "Successfully pushed to $BRANCH" with title "I did-ed it"'
+    url=$(git push 2>&1 | grep "/pull-requests/new?")
+    url=${url#"remote:"}
+
+    if [[ $url = *[!\ ]* ]]; then
+        PR="PR?"
+        NO="Nah"
+        RESPONSE=$(osascript -e "display dialog \"Successfully pushed to $BRANCH\" with title \"I did-ed it\" buttons { \"$PR\", \"$NO\" }")
+        
+        if [[ $RESPONSE == "button returned:$PR" ]]; then 
+            open $url
+        fi
     fi
-fi
+fi 
